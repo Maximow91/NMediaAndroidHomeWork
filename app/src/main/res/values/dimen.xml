@@ -5,4 +5,5 @@
     <dimen name="font_size">24sp</dimen>
     <dimen name="netology_link_absolute_y">472dp</dimen>
     <dimen name="netology_link_absolute_x">222dp</dimen>
+    <dimen name="test_like">10</dimen>
 </resources>
