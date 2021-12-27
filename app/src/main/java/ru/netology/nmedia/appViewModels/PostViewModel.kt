@@ -12,5 +12,6 @@ class PostViewModel:ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
 
     val data: LiveData<Post> = repository.get()
-    fun likeOrShare(textView: TextView, imageView: ImageView) = repository.likeOrShare(textView, imageView)
+    fun like() = repository.like()
+    fun share() = repository.share()
 }
