@@ -2,8 +2,10 @@ package ru.netology.nmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.appViewModels.PostViewModel
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.repository.*
 
 fun forPrintPostFields(value:Int ):String {
@@ -25,26 +27,20 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         val viewModel: PostViewModel by viewModels()
 
-        viewModel.data.observe(this){post ->
-
-            with(binding) {
-                author.text = post.author
-                published.text = post.published
-                content.text = post.content
-                likesValue.text = forPrintPostFields(post.likesValue)
-                sharedValue.text = forPrintPostFields(post.sharedValue)
-
-                if (post.likedByMe) likeButton.setImageResource(R.drawable.ic_favorite_24)
-                else likeButton.setImageResource(R.drawable.ic_favorite_border_24)
-            }
-            binding.likeButton.setOnClickListener {
-                viewModel.like()
-            }
-            binding.shareButton.setOnClickListener{
-                viewModel.share()
-            }
+        val adapter = PostsAdapter( {viewModel.like(it.id)}, {viewModel.share(it.id)} )
+        binding.container.adapter = adapter
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
         }
     }
-   }
+}
+
+
+
+
+
+
