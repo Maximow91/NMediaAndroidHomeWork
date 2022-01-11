@@ -7,6 +7,12 @@
     <string name="published">"@sample/new_posts.json/data/published"</string>
     <string name="author">Netology. University of Internet Professions of the Future</string>
     <string name="demo_like_value">10</string>
+    <string name="menu_remove">Remove</string>
+    <string name="post_text">Post text</string>
+    <string name="error_empty_content">Content can\'t be empty</string>
+    <string name="description_post_save">Post save</string>
     <string name="demo_share_value" translatable="false">5</string>
     <string name="demo_viewed_value" translatable="false"> 10</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_edit_text">Edit text</string>
 </resources>
