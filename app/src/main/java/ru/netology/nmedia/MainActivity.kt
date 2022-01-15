@@ -52,6 +52,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        viewModel.edited.observe(this) {
+            if (it.id != 0L) {
+                binding.content.setText(it.content)
+                binding.group.visibility = View.VISIBLE
+            }
+        }
+
+        binding.close.setOnClickListener {
+            viewModel.close()
+            binding.group.visibility = View.GONE
+            binding.content.setText("")
+            AndroidUtils.hideKeyboard(it)
+        }
+
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             val newPost = adapter.itemCount < posts.size
@@ -59,18 +74,6 @@ class MainActivity : AppCompatActivity() {
                 if (newPost) {
                     binding.list.smoothScrollToPosition(0)
                     binding.content.requestFocus()
-                }
-            }
-
-            viewModel.edited.observe(this) {
-                if (it.id != 0L) {
-                    binding.content.setText(it.content)
-                    binding.group.visibility = View.VISIBLE
-                }
-                binding.close.setOnClickListener {
-                    binding.group.visibility = View.GONE
-                    binding.content.setText("")
-                    AndroidUtils.hideKeyboard(it)
                 }
             }
 
