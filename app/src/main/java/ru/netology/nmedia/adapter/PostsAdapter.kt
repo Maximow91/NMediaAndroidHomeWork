@@ -1,8 +1,8 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.ScrollCaptureCallback
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,14 +11,19 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.forPrintPostFields
 
-typealias CallBack = (Post) -> Unit
+interface AdapterCallback{
+    fun onLike(post: Post)
+    fun onShare(post: Post)
+    fun onRemove(post: Post)
+    fun onEdit(post: Post)
 
-class PostsAdapter (private val likeCallback: CallBack,
-                    private val shareCallback: CallBack): ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
+}
+
+class PostsAdapter (private val callback: AdapterCallback): ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return PostViewHolder(binding, likeCallback, shareCallback)
+        return PostViewHolder(binding, callback)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -27,9 +32,10 @@ class PostsAdapter (private val likeCallback: CallBack,
     }
 }
 
-class PostViewHolder(private val binding: CardPostBinding,
-                     private val likeCallback: CallBack,
-                     private val shareCallback: CallBack) :RecyclerView.ViewHolder(binding.root){
+class PostViewHolder(
+    private val binding: CardPostBinding,
+    private val callback: AdapterCallback
+) :RecyclerView.ViewHolder(binding.root){
 
     fun bind(post: Post) {
         binding.apply {
@@ -42,10 +48,24 @@ class PostViewHolder(private val binding: CardPostBinding,
             if (post.likedByMe) likeButton.setImageResource(R.drawable.ic_favorite_24)
             else likeButton.setImageResource(R.drawable.ic_favorite_border_24)
             likeButton.setOnClickListener {
-                likeCallback(post)
+                callback.onLike(post)
             }
+
             shareButton.setOnClickListener {
-                shareCallback(post)
+                callback.onShare(post)
+            }
+
+            menuButton.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.menu_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.remove -> callback.onRemove(post)
+                            R.id.edit -> callback.onEdit(post)
+                        }
+                        true
+                    }
+                }.show()
             }
         }
     }
