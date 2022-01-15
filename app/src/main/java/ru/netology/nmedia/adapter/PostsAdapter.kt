@@ -45,6 +45,7 @@ class PostViewHolder(
             likesValue.text = forPrintPostFields(post.likesValue)
             sharedValue.text = forPrintPostFields(post.sharedValue)
 
+
             if (post.likedByMe) likeButton.setImageResource(R.drawable.ic_favorite_24)
             else likeButton.setImageResource(R.drawable.ic_favorite_border_24)
             likeButton.setOnClickListener {
