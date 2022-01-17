@@ -15,7 +15,9 @@ val empty = Post (id = 0,
     published = "",
     likesValue = 0,
     sharedValue = 0,
-    likedByMe = false)
+    likedByMe = false,
+    sharedByMe = false
+    )
 
 class PostViewModel:ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
