@@ -42,16 +42,15 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likesValue.text = forPrintPostFields(post.likesValue)
-            sharedValue.text = forPrintPostFields(post.sharedValue)
 
 
-            if (post.likedByMe) likeButton.setImageResource(R.drawable.ic_favorite_24)
-            else likeButton.setImageResource(R.drawable.ic_favorite_border_24)
+            likeButton.isChecked = post.likedByMe
+            likeButton.text = post.likesValue.toString()
             likeButton.setOnClickListener {
                 callback.onLike(post)
             }
-
+            shareButton.isChecked = post.sharedByMe
+            shareButton.text = post.sharedValue.toString()
             shareButton.setOnClickListener {
                 callback.onShare(post)
             }
