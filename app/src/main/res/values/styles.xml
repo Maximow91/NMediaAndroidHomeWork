@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.App.LikeCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+
+        <item name="buttonTint">@color/like_tint_selector</item>
+
+    </style>
+
+    <style name="Widget.App.ButtonCheckBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+
+        <item name="iconTint">@color/like_tint_selector</item>
+        <item name="icon">@drawable/ic_like_24dp</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+
+    </style>
+
+    <style name="Widget.App.IconButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+
+        <item name="iconTint">@color/icon_button_tint_selector</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+
+    </style>
+            
+        
+        
+
+
+</resources>

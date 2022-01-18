@@ -6,5 +6,7 @@ data class Post(val id:Long,
                 val published:String,
                 val likesValue:Int,
                 val sharedValue:Int,
-                val likedByMe:Boolean)
+                val likedByMe:Boolean,
+                val sharedByMe:Boolean
+)
 
