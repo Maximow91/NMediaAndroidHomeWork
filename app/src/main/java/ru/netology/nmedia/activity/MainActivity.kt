@@ -1,14 +1,18 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
+import ru.netology.nmedia.Post
+import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.appViewModels.PostViewModel
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.ActivityNewPostBinding
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.repository.*
 import ru.netology.nmedia.util.AndroidUtils
@@ -32,8 +36,15 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val viewModel: PostViewModel by viewModels()
+
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { text ->
+            text?.let {
+                viewModel.changeContent(text.toString())
+                viewModel.save()
+            }
+        }
+
 
         val adapter = PostsAdapter(object : AdapterCallback {
             override fun onLike(post: Post) {
@@ -48,7 +59,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val chooser = Intent.createChooser(intent,getString(R.string.share_post))
-
                 startActivity(chooser)
                 viewModel.share(post.id)
             }
@@ -63,31 +73,34 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        viewModel.edited.observe(this) {
+       /* viewModel.edited.observe(this) {
             if (it.id != 0L) {
                 binding.content.setText(it.content)
                 binding.group.visibility = View.VISIBLE
             }
-        }
+        }*/
 
-        binding.close.setOnClickListener {
+       /* binding.close.setOnClickListener {
             viewModel.close()
             binding.group.visibility = View.GONE
             binding.content.setText("")
             AndroidUtils.hideKeyboard(it)
-        }
+        }*/
 
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             val newPost = adapter.itemCount < posts.size
-            adapter.submitList(posts) {
+            adapter.submitList(posts)
+        /*viewModel.data.observe(this) { posts ->
+            val newPost = adapter.itemCount < posts.size
+            adapter.submitList(posts)*/ /*{
                 if (newPost) {
                     binding.list.smoothScrollToPosition(0)
                     binding.content.requestFocus()
-                }
+                }*/
             }
 
-            binding.save.setOnClickListener {
+/*            binding.save.setOnClickListener {
                 with(binding.content) {
                     var content = text.toString()
                     if (content.isBlank()) {
@@ -101,11 +114,14 @@ class MainActivity : AppCompatActivity() {
                     binding.group.visibility = View.GONE
 
                     setText("")
+
                     clearFocus()
                     AndroidUtils.hideKeyboard(it)
                 }
-            }
-        }
+            }*/
+             binding.add.setOnClickListener {
+                 newPostLauncher.launch()
+             }
     }
 }
 
