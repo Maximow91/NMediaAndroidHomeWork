@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
-import ru.netology.nmedia.forPrintPostFields
+import ru.netology.nmedia.activity.forPrintPostFields
 
 interface AdapterCallback{
     fun onLike(post: Post)
