@@ -59,8 +59,10 @@
         android:id="@+id/header_barrier"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar,published,menu_button"
-        app:barrierDirection="bottom" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="64dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/content"
@@ -100,16 +102,61 @@
         app:icon="@drawable/ic_red_eye_24"
         style="@style/Widget.App.IconButton"
         app:layout_constraintTop_toBottomOf="@id/content"
-        app:layout_constraintEnd_toStartOf="@id/viewed_value"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/viewed_value"
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/editTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/demo_viewed_value"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="content" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="pensil,edit_text,post_text,close" />
+
+    <ImageView
+        android:id="@+id/pensil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/ic_baseline_24"
+        app:layout_constraintTop_toTopOf="@id/close"
+        />
+    <TextView
+        android:id="@+id/edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_edit_text"
+        android:textColor="@color/blue_900"
+        app:layout_constraintStart_toEndOf="@id/pensil"
+        app:layout_constraintTop_toTopOf="@id/close"
+        />
+    <TextView
+        android:id="@+id/post_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/content"
+        app:layout_constraintTop_toBottomOf="@id/edit_text"
+        app:layout_constraintStart_toEndOf="@id/pensil"
+        app:layout_constraintEnd_toStartOf="@id/close"
+        android:singleLine="true"
+        android:ellipsize="end"
+        />
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close_48"
+        android:padding="4dp"
+        android:layout_margin="@dimen/common_spacing"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintBottom_toTopOf="@id/edit_text"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
