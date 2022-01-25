@@ -15,5 +15,6 @@
     <string name="demo_share_value" translatable="false">5</string>
     <string name="demo_viewed_value" translatable="false"> 10</string>
     <string name="menu_edit">Edit</string>
+    <string name="share_post">Share post</string>
     <string name="menu_edit_text">Edit text</string>
 </resources>
