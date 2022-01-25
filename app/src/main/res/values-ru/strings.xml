@@ -14,4 +14,5 @@
     <string name="menu_edit">Редактировать</string>
     <string name="menu_edit_text">Редактировать текст</string>
     <string name="description_post_like">Пост лайкнут</string>
+    <string name="share_post">Поделиться постом</string>
 </resources>
